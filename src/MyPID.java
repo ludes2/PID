@@ -4,11 +4,12 @@ public class MyPID {
     private double I = 0;
     private double D = 0;
 
-    private double error = 0;
-
     private double targetPoint = 0; // setpoint
 
     private boolean reversed=false;
+
+    private double lastError = 0;
+    private boolean firstRun = true;
 
     /**
      * P-only Constructor
@@ -16,6 +17,18 @@ public class MyPID {
      */
     public MyPID(double p){
         this.P = p;
+        checkSigns();
+    }
+
+    /**
+     * PD-only Constructor
+     * @param p
+     * @param d
+     */
+    public MyPID(double p, double d){
+        this.P = p;
+        this.D = d;
+        checkSigns();
     }
 
     /**
@@ -37,16 +50,24 @@ public class MyPID {
 
     public double calculateOutput(double actual, double target){
         double output;
-        double error;
         double Poutput;
+        double Doutput;
+        this.targetPoint = target;
 
         // calculate error - delta von target and actual
-        error = target - actual;
+        double error = target - actual;
 
-        // calculate P - P*error
+
+        // calculate P --> P * error
         Poutput = this.P * error;
 
-        output = Poutput;
+        // calculate D --> D * (error - lastError)
+        Doutput = this.D * (error - lastError);
+        this.lastError = error;
+
+        // calculate I -->
+
+        output = Poutput + Doutput;
         return output;
 
     }
