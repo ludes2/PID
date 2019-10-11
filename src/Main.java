@@ -3,7 +3,7 @@ public class Main {
     public static void main(String[] args) {
         double P = 0.4;
         double D = 0.2;
-        double I = 0;
+        double I = 0.1;
         double target = 100;
         double actual = 0;
         double output = 0;
@@ -13,13 +13,13 @@ public class Main {
 
         System.out.printf("%s", "Target\tActual\tOutput\tError\n");
 
-        for (int i = 0; i < 20; i++){
+        for (int i = 0; i < 100; i++){
 			System.out.printf("%3.2f\t%3.2f\t%3.2f\t%3.2f\n", target, actual, output, (target-actual));
             output = myPID.calculateOutput(actual, target);
 			actual = actual + output;
 
             try {
-                Thread.sleep(200);
+                Thread.sleep(1);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

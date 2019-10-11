@@ -9,7 +9,7 @@ public class MyPID {
     private boolean reversed=false;
 
     private double lastError = 0;
-    private boolean firstRun = true;
+    private double errorSum = 0;
 
     /**
      * P-only Constructor
@@ -52,6 +52,7 @@ public class MyPID {
         double output;
         double Poutput;
         double Doutput;
+        double Ioutput;
         this.targetPoint = target;
 
         // calculate error - delta von target and actual
@@ -66,8 +67,12 @@ public class MyPID {
         this.lastError = error;
 
         // calculate I -->
+        errorSum += error;
+        Ioutput = I * errorSum;
 
-        output = Poutput + Doutput;
+
+
+        output = Poutput + Doutput + Ioutput;
         return output;
 
     }

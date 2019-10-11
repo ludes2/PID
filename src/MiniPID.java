@@ -277,7 +277,7 @@ public class MiniPID {
             Doutput= -D*(actual-lastActual);
             lastActual=actual;
 
-            // The Iterm is more complex. There's several things to factor in to make it easier to deal with.
+            // The I-term is more complex. There's several things to factor in to make it easier to deal with.
             // 1. maxIoutput restricts the amount of output contributed by the Iterm.
             // 2. prevent windup by not increasing errorSum if we're already running against our max Ioutput
             // 3. prevent windup by not increasing errorSum if output is output=maxOutput
